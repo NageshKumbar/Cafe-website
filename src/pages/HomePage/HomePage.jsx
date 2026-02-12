@@ -1,11 +1,11 @@
-import './HomePage.css'
+import './HomePage.css';
 
 function HomePage() {
-    return (
-        <>
-            <p>This is the HomePage</p>
-        </>
-    )
+  return (
+    <div className="homepage">
+      <p>This is the HomePage</p>
+    </div>
+  );
 }
 
 export default HomePage;

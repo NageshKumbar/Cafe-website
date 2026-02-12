@@ -1,0 +1,48 @@
+.navbar {
+  width: 100%;
+  height: 70px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: #f8f3ee;
+  border-bottom: 1px solid #e5dcd3;
+}
+
+
+/* Logo section */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  height: 45px;
+  width: auto;
+}
+
+.logo span {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #5c4033;
+}
+
+/* Links */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 35px;
+}
+
+.nav-links li {
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #5c4033;
+  transition: color 0.2s ease;
+}
+
+.nav-links li:hover {
+  color: #8b5e3c;
+}

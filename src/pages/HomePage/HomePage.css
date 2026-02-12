@@ -1,19 +1,20 @@
-body {
-  min-height: 97vh;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.homepage {
+  min-height: 100vh;
+  padding-top: 80px;   /* 👈 THIS FIXES IT */
   position: relative;
+  z-index: 1;
 }
 
-body::before {
+
+.homepage::before {
   content: "";
   position: fixed;
   inset: 0;
 
-  background: url('../assets/logo_wo_bg.png') center / contain no-repeat;
-  opacity: 0.40;          /* 👈 adjust this */
-  pointer-events: none;  /* allows clicks through */
-  z-index: -1;
+  background: url('../../assets/logo_wo_bg.png')
+              center 60% / contain no-repeat;
+
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: -1;   /* 👈 put it behind everything */
 }
