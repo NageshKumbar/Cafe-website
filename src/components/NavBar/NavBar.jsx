@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
+import logo from '../../assets/logo_wo_bg.png';
 
 const NavBar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -56,7 +57,7 @@ const NavBar = () => {
         {/* Logo */}
         <Link to="/" className="navbar-logo">
           <img 
-            src="/src/assets/logo_wo_bg.png" 
+            src={logo}
             alt="NH's Cafe Logo" 
             className="logo-image"
           />
