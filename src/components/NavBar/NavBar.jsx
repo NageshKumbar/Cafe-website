@@ -5,6 +5,7 @@ import './Navbar.css';
 const NavBar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [hiddenByStory, setHiddenByStory] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -16,6 +17,32 @@ const NavBar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    // Observe the story section
+    const storySection = document.querySelector('.story');
+    
+    if (storySection) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            // Hide navbar when story section is in view
+            setHiddenByStory(entry.isIntersecting);
+          });
+        },
+        {
+          threshold: 0.3, // Trigger when 30% of the section is visible
+          rootMargin: '-80px 0px 0px 0px' // Account for navbar height
+        }
+      );
+
+      observer.observe(storySection);
+
+      return () => {
+        observer.disconnect();
+      };
+    }
+  }, [location.pathname]); // Re-run when route changes
+
   const navItems = [
     { path: '/', label: 'Home' },
     { path: '/about', label: 'About' },
@@ -24,19 +51,15 @@ const NavBar = () => {
   ];
 
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${hiddenByStory ? 'hidden-by-story' : ''}`}>
       <div className="navbar-container">
         {/* Logo */}
         <Link to="/" className="navbar-logo">
-          <div className="logo-icon">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M17 8C17 10.76 14.76 13 12 13C9.24 13 7 10.76 7 8H8.5C8.5 9.93 10.07 11.5 12 11.5C13.93 11.5 15.5 9.93 15.5 8H17Z" fill="currentColor"/>
-              <path d="M18.5 3H5.5C4.67 3 4 3.67 4 4.5V5.5C4 6.33 4.67 7 5.5 7H18.5C19.33 7 20 6.33 20 5.5V4.5C20 3.67 19.33 3 18.5 3Z" fill="currentColor"/>
-              <path d="M9.5 16C9.5 16.83 8.83 17.5 8 17.5C7.17 17.5 6.5 16.83 6.5 16H5C5 17.66 6.34 19 8 19C9.66 19 11 17.66 11 16H9.5Z" fill="currentColor"/>
-              <path d="M16 17.5C15.17 17.5 14.5 16.83 14.5 16H13C13 17.66 14.34 19 16 19C17.66 19 19 17.66 19 16H17.5C17.5 16.83 16.83 17.5 16 17.5Z" fill="currentColor"/>
-              <path d="M20 9H4V20C4 20.55 4.45 21 5 21H19C19.55 21 20 20.55 20 20V9Z" fill="currentColor" fillOpacity="0.3"/>
-            </svg>
-          </div>
+          <img 
+            src="/src/assets/logo_wo_bg.png" 
+            alt="NH's Cafe Logo" 
+            className="logo-image"
+          />
           <span className="logo-text">NH's Cafe</span>
         </Link>
 
@@ -56,7 +79,7 @@ const NavBar = () => {
         </div>
 
         {/* CTA Button */}
-        <div className="navbar-cta">
+        <div className={`navbar-cta ${location.pathname === '/contact' ? 'hidden' : ''}`}>
           <Link to="/contact" className="cta-button">
             <span className="cta-text">Reserve a Table</span>
             <svg className="cta-arrow" viewBox="0 0 24 24" fill="none">
